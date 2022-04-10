@@ -21,7 +21,7 @@ WantedBy=multi-user.target
 Then by executing this command `systemctl enable test_script.service` it will run on startup.
 
 ## - cron
-Another method to schedule a script to run on startup is the cron job. To do this we must for to corntab editor by executing `crontab -e` and then add this line to the file:
+Another method to schedule a script to run on startup is the cron job. To do this we must go to corntab editor by executing `crontab -e` and then add this line to the file:
 
 `@reboot /home/snapp/test_script.sh`
 
