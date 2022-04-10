@@ -1,0 +1,20 @@
+version: "2.2"
+services:
+    timestamp:
+        image: timestamp:latest
+    	build: .
+        container_name: timestamp
+        restart: unless-stopped        
+        ports:
+            - "3000:3000"
+        volumes:
+           - /etc/localtime:/etc/localtime:ro
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "50m" 
+        networks:
+            - snapp       
+networks:
+  snapp:
+    driver: bridge                  

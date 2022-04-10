@@ -1,0 +1,3 @@
+All directories contain a `README.md` file that describes its directory contents. Please read them to understand different parts of the solutions. 
+
+All readme files are written in markdown format so it is recommended to read them in a suitable markdown editor. Alternatively, you could see all of this content on my GitHub page through [https://github.com/msitworld/SnappMarketTestCase](https://github.com/msitworld/SnappMarketTestCase)

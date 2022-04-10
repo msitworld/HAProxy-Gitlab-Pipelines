@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  nginx:
+    image: nginx-snapp:latest
+    build: .
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - /etc/localtime:/etc/localtime:ro     
+      #- ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      #- ./config/mime.types:/etc/nginx/mime.types    
+      #- ./config/conf.d:/etc/nginx/conf.d
+      #- ./config/ssl:/ssl
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m" 
+    networks:
+        - snapp
+
+
+  timestamp:
+      image: timestamp:latest
+      container_name: timestamp
+      restart: unless-stopped
+      volumes:
+          - /etc/localtime:/etc/localtime:ro
+      logging:
+          driver: "json-file"
+          options:
+              max-size: "50m" 
+      networks:
+          - snapp   
+
+networks:
+  snapp:
+    driver: bridge

@@ -1,0 +1,36 @@
+services:
+  - haproxy:alpine
+  - docker:dind
+
+
+variables:
+  IMAGE_NAME: "$CI_REGISTRY/haproxy-snapp"
+  IMAGE_TAG: "latest"
+
+
+stages:
+  - validate
+  - build
+
+validate-job:
+  stage: validate
+  image: haproxy:alpine
+  only:
+    refs:
+      - develop
+  script:
+    - echo "Validating HAProxy configuration file..."
+    - haproxy -c -f haproxy.cfg
+
+
+build-job:
+  stage: build
+  image: docker:dind
+  only:
+    refs:
+      - develop  
+  script:
+    - echo "Building docker image..."
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --pull -t $IMAGE_NAME:$IMAGE_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_TAG
